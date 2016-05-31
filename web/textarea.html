@@ -1,0 +1,207 @@
+<!doctype html>
+<link rel="import" href="packages/paper_elements/roboto.html">
+<link rel="import" href="packages/paper_elements/paper_autogrow_textarea.html">
+<link rel="import" href="packages/paper_elements/paper_input_decorator.html">
+<link rel="import" href="packages/paper_elements/paper_input.html">
+<link rel="import" href="packages/paper_elements/paper_button.html">
+<link rel="import" href="packages/paper_elements/paper_toast.html">
+<polymer-element name="signin-element">
+<template>
+<style shim-shadowdom>
+  body {
+    font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+    font-size: 14px;
+    margin: 0;
+    padding: 24px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-touch-callout: none;
+  }
+  section {
+    padding: 20px 0;
+  }
+  section > div {
+    padding: 14px;
+    font-size: 16px;
+  }
+  paper-input {
+    width: 80%;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+
+  paper-input-decorator {
+    max-width: 80%;
+  }
+  paper-input.narrow {
+    width: 150px;
+  }
+  .custom /deep/ ::-webkit-input-placeholder {
+    color: #f4b400;
+  }
+  .custom /deep/ ::-moz-placeholder {
+    color: #f4b400;
+  }
+  .custom /deep/ :-ms-input-placeholder {
+    color: #f4b400;
+  }
+  .custom /deep/ .label-text,
+  .custom /deep/ .error {
+    color: #f4b400;
+  }
+  .custom /deep/ .unfocused-underline {
+    background-color: #f4b400;
+  }
+  .custom[focused] /deep/ .floated-label .label-text {
+    color: #0f9d58;
+  }
+  .custom /deep/ .focused-underline {
+    background-color: #0f9d58;
+  }
+  .custom /deep/ .cursor {
+    background-color: #1a237e;
+  }
+  .custom.invalid /deep/ .floated-label .label-text,
+  .custom /deep/ .error {
+    color: #f06292;
+  }
+  .custom.invalid /deep/ .focused-underline,
+  .custom.invalid /deep/ .cursor {
+    background-color: #f06292;
+  }
+  .custom {
+    color: #1a237e;
+  }
+
+  paper-button.colored {
+    color: #4285f4;
+  }
+
+  paper-toast {
+  top: 80%;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  font-size: 24px;
+}
+
+paper-toast.error {
+
+}
+
+paper-toast.success {
+    background-color: #4caf50;
+}
+
+paper-toast.alert {
+    background-color: #f44336;
+}
+
+textarea {
+  word-break: break-all;
+}
+
+paper-input-decorator .mirror-text {
+    white-space: normal;
+    word-break: break-all;
+}
+
+</style>
+  <div horizontal  center-justified layout>
+      <div flex></div>
+      <div flex self-center>
+          <paper-input-decorator label="Template" floatingLabel id='d-template'>
+              <paper-autogrow-textarea id='a-template'>
+                  <textarea id="template" on-change='{{changeTemplate}}' value="{{template}}"></textarea>
+              </paper-autogrow-textarea>
+          </paper-input-decorator>
+      </div>
+      <div flex self-center>
+          <paper-input-decorator label="Text sms" floatingLabel id='d-text'>
+              <paper-autogrow-textarea id='a-text'>
+                  <textarea id="text" on-change='{{changeText}}' value="{{text}}"></textarea>
+              </paper-autogrow-textarea>
+          </paper-input-decorator>
+      </div>
+      <div flex></div>
+  </div>
+  <br>
+  <div horizontal  center-justified layout>
+      <div flex></div>
+      <div flex two>
+          <paper-button raised class="colored" on-click="{{check}}">Check</paper-button>
+          <paper-button raised class="colored" on-click="{{clear}}">Clear</paper-button>
+      </div>
+      <div flex></div>
+  </div>
+  <div horizontal  center-justified layout>
+      <div flex></div>
+      <div flex two id="result">
+          <paper-toast id="check-success" class="success" text="Result: True"></paper-toast>
+          <paper-toast id="check-alert"  class="alert" text="Result: False"></paper-toast>
+          <paper-toast id="check-error"  class="error" text="Result: Server error"></paper-toast>
+      </div>
+      <div flex></div>
+  </div>
+ </template>
+ <script
+     type="application/dart"
+     >
+     import 'dart:html';
+     import 'dart:async';
+     import 'dart:convert';
+     import 'package:http/browser_client.dart';
+     import 'package:paper_elements/paper_input_decorator.dart';
+     import 'package:paper_elements/paper_autogrow_textarea.dart';
+     import 'package:paper_elements/paper_toast.dart';
+     import 'package:http/http.dart' as http;
+     import 'package:polymer/polymer.dart';
+
+     @CustomTag('signin-element')
+     class signin extends PolymerElement  {
+       signin.created() : super.created();
+
+       @observable String text = "";
+       @observable String template = "";
+
+
+       check() async{
+//         var client = new BrowserClient();
+//         var url = "/api/check";
+//         client.post(url, body: {"text": text, "template": template})
+//             .then((response) {
+//           print("Response status: ${response.statusCode}");
+//           print("Response body: ${response.body}");
+//           var res = JSON.decode(response.body);
+//           if ( res['result']['flag'] == true ){
+//                (this.$['check-success'] as PaperToast).show();
+//           }else if (res['result']['flag'] == false) {
+//                (this.$['check-alert'] as PaperToast).show();
+//           }else{
+//                (this.$['check-error'] as PaperToast).show();
+//           }
+//            });
+            (this.$['check-alert'] as PaperToast).show();
+
+
+       }
+
+       void changeTemplate(Event e){
+         template = (e.target as TextAreaElement).value;
+       }
+
+       void changeText(Event e){
+         text = (e.target as TextAreaElement).value;
+
+       }
+
+
+       void clear(Event e){
+         (this.$['template'] as TextAreaElement).value = null;
+         (this.$['text'] as TextAreaElement).value = null;
+         (this.$['a-template'] as PaperAutogrowTextarea).update(null);
+         (this.$['a-text'] as PaperAutogrowTextarea).update(null);
+       }
+
+     }
+ </script>
+</polymer-element>
