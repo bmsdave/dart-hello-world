@@ -1,0 +1,111 @@
+body {
+    font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+    font-size: 14px;
+    margin: 0;
+    padding: 24px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-touch-callout: none;
+}
+
+section {
+    padding: 20px 0;
+}
+
+section > div {
+    padding: 14px;
+    font-size: 16px;
+}
+
+paper-input {
+    width: 80%;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+paper-input-decorator {
+    max-width: 80%;
+}
+
+paper-input.narrow {
+    width: 150px;
+}
+
+.custom /deep/ ::-webkit-input-placeholder {
+    color: #f4b400;
+}
+
+.custom /deep/ ::-moz-placeholder {
+    color: #f4b400;
+}
+
+.custom /deep/ :-ms-input-placeholder {
+    color: #f4b400;
+}
+
+.custom /deep/ .label-text,
+.custom /deep/ .error {
+    color: #f4b400;
+}
+
+.custom /deep/ .unfocused-underline {
+    background-color: #f4b400;
+}
+
+.custom[focused] /deep/ .floated-label .label-text {
+    color: #0f9d58;
+}
+
+.custom /deep/ .focused-underline {
+    background-color: #0f9d58;
+}
+
+.custom /deep/ .cursor {
+    background-color: #1a237e;
+}
+
+.custom.invalid /deep/ .floated-label .label-text,
+.custom /deep/ .error {
+    color: #f06292;
+}
+
+.custom.invalid /deep/ .focused-underline,
+.custom.invalid /deep/ .cursor {
+    background-color: #f06292;
+}
+
+.custom {
+    color: #1a237e;
+}
+
+paper-button.colored {
+    color: #4285f4;
+}
+
+paper-toast {
+  top: 80%;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  font-size: 24px;
+}
+
+paper-toast.error {
+
+}
+
+paper-toast.success {
+    background-color: #4caf50;
+}
+
+paper-toast.alert {
+    background-color: #f44336;
+}
+
+textarea {
+  word-break: break-all;
+}
+
+paper-input-decorator .mirror-text {
+    white-space: normal;
+    word-break: break-all;
+}
